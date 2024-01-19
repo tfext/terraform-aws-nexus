@@ -1,9 +1,9 @@
 module "base" {
-  source = "github.com/dan-drew/terraform-aws-base"
+  source = "github.com/tfext/terraform-aws-base"
 }
 
 module "tagging" {
-  source       = "github.com/dan-drew/terraform-utilities-tagging"
+  source       = "github.com/tfext/terraform-utilities-tagging"
   environments = false
 }
 
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "role_policy" {
 }
 
 module "container_definition" {
-  source          = "/home/dan/dev/terraform/aws/ecs_container_definition"
+  source          = "github.com/tfext/terraform-aws-ecs-container-definition"
   name            = local.name
   image           = local.nexus_image
   image_tag       = var.nexus_version
@@ -89,7 +89,7 @@ module "container_definition" {
 }
 
 module "service" {
-  source          = "/home/dan/dev/terraform/aws/ecs_service"
+  source          = "github.com/tfext/terraform-aws-ecs-service"
   name            = local.name
   cluster         = var.ecs_cluster
   containers      = [module.container_definition]
